@@ -1,4 +1,4 @@
-import "./styles.css"
+//import "styles.css"
 
 // initial todos
 // DO NOT EDIT THIS ARRAY
@@ -26,9 +26,9 @@ and hits enter or the + button the addToDo function should be called. */
 const inputVal = document.querySelector(".inputCheck")
 inputVal.addEventListener("keydown", checkEnter)
 function checkEnter(event) {
-  //if (event === "Enter") {
-  console.log(inputVal.value)
-  //}
+  if (event.key === "Enter" || event.keyCode === "13") {
+    console.log(inputVal.value)
+  }
 }
 
 /*
