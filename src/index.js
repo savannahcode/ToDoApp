@@ -27,7 +27,7 @@ const inputVal = document.querySelector(".inputCheck")
 inputVal.addEventListener("keydown", checkEnter)
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === "13") {
-    console.log(inputVal.value)
+    addToDo(inputVal.value)
   }
 }
 
@@ -39,4 +39,14 @@ toDoComlete should automatically be set to false.
 toDoText should be whatever the user input is.
 */
 
-function addToDo() {}
+function addToDo(newToDo) {
+  let toDoObject = {
+    toDoID: "x",
+    toDoText: `${newToDo}`,
+    todoComplete: false,
+    toDoDeleted: false,
+  }
+
+  todos.push(toDoObject)
+  console.log(todos)
+}
