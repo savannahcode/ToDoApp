@@ -71,13 +71,20 @@ function addToDo(newToDo) {
 }
 
 function renderToDo(todoItem) {
+  const sideBtn = document.createElement("span")
+  const sideBtnIcon = document.createElement("i")
   const newLi = document.createElement("li")
+  sideBtnIcon.classList.add("fa-solid")
   newLi.textContent = todoItem.todoText
   if (todoItem.todoComplete) {
     newLi.classList.add("done") //add done class if completed
+    sideBtnIcon.classList.add("fa-trash")
+  } else {
+    sideBtnIcon.classList.add("fa-pen-to-square")
   }
   toDoList.appendChild(newLi)
-  console.log("rendered call")
+  newLi.appendChild(sideBtn)
+  sideBtn.appendChild(sideBtnIcon)
 }
 
 function renderToDos(array) {
