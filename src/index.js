@@ -38,6 +38,7 @@ inputVal.addEventListener("keydown", checkEnter)
 const toDoList = document.querySelector(".todoList")
 let plusButton = document.getElementById("plus")
 const clearDoneButton = document.getElementById("clearDone")
+let tasksLeft = document.getElementById("tasksLeft")
 const deleteBtns = document.querySelectorAll("deleteBtn")
 let editBtn = document.querySelector("editBtn")
 
@@ -125,6 +126,14 @@ function renderToDos(array) {
   nonDeletedToDos.forEach((todo) => {
     renderToDo(todo)
   })
+
+  let tasksLeftNum = 0
+  array.forEach((task) => {
+    if (!task.todoComplete) {
+      tasksLeftNum++
+    }
+  })
+  tasksLeft.textContent = `You have ${tasksLeftNum} pending tasks.`
 }
 
 renderToDos(todos)
