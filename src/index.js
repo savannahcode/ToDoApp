@@ -7,18 +7,24 @@ let todos = [
   {
     todoID: 0,
     todoText: "Finish Homework",
+    todoCategory: "TBD",
+    todoDueDate: "12/16/2023",
     todoComplete: false,
     todoDeleted: false,
   },
   {
     todoID: 1,
     todoText: "Walk the dog",
+    todoCategory: "TBD",
+    todoDueDate: "12/16/2023",
     todoComplete: true,
     todoDeleted: false,
   },
   {
     todoID: 2,
     todoText: "Clean my room",
+    todoCategory: "TBD",
+    todoDueDate: "12/16/2023",
     todoComplete: false,
     todoDeleted: false,
   },
@@ -61,6 +67,8 @@ function addToDo(newToDo) {
   let toDoObject = {
     todoID: todos.length,
     todoText: newToDo,
+    todoCategory: "TBD",
+    todoDueDate: "TBD",
     todoComplete: false,
     todoDeleted: false,
   }
@@ -88,7 +96,10 @@ function renderToDo(todoItem) {
 }
 
 function renderToDos(array) {
-  array.forEach((todo) => {
+  // removed the deleted toDos from the displayed toDos
+  const nonDeletedToDos = array.filter((toDo) => toDo.todoDeleted === false)
+
+  nonDeletedToDos.forEach((todo) => {
     renderToDo(todo)
   })
 }
