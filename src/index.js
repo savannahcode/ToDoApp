@@ -8,19 +8,19 @@ let todos = [
     todoID: 0,
     todoText: "Finish Homework",
     todoComplete: false,
-    toDoDeleted: false,
+    todoDeleted: false,
   },
   {
     todoID: 1,
     todoText: "Walk the dog",
     todoComplete: true,
-    toDoDeleted: false,
+    todoDeleted: false,
   },
   {
     todoID: 2,
     todoText: "Clean my room",
     todoComplete: false,
-    toDoDeleted: false,
+    todoDeleted: false,
   },
 ]
 
@@ -29,6 +29,8 @@ and hits enter or the + button the addToDo function should be called. */
 const inputVal = document.querySelector(".inputCheck")
 inputVal.addEventListener("keydown", checkEnter)
 inputVal.addEventListener("keydown", checkEnter)
+const toDoList = document.querySelector(".todoList")
+let plusButton = document.getElementById("plus")
 
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === 13) {
@@ -43,7 +45,6 @@ function checkEnter(event) {
   console.log(inputVal.value)
 })
 */
-let plusButton = document.getElementById("plus")
 plusButton.addEventListener("click", function handleClick() {
   addToDo(inputVal.value)
 })
@@ -58,26 +59,30 @@ toDoText should be whatever the user input is.
 
 function addToDo(newToDo) {
   let toDoObject = {
-    toDoID: todos.length,
-    toDoText: newToDo,
+    todoID: todos.length,
+    todoText: newToDo,
     todoComplete: false,
-    toDoDeleted: false,
+    todoDeleted: false,
   }
   todos.push(toDoObject)
   console.log(todos)
+  toDoList.innerHTML = "" // Clears the toDoList so the new one can be added
   renderToDos(todos)
 }
 
-const toDoList = document.querySelector(".todoList")
+function renderToDo(todoItem) {
+  const newLi = document.createElement("li")
+  newLi.textContent = todoItem.todoText
+  if (todoItem.todoComplete) {
+    newLi.classList.add("done") //add done class if completed
+  }
+  toDoList.appendChild(newLi)
+  console.log("rendered call")
+}
+
 function renderToDos(array) {
   array.forEach((todo) => {
-    const newLi = document.createElement("li")
-    newLi.textContent = todo.todoText
-    if (todo.todoComplete) {
-      newLi.classList.add("done") //add done class if completed
-    }
-    toDoList.appendChild(newLi)
-    console.log("rendered call")
+    renderToDo(todo)
   })
 }
 
