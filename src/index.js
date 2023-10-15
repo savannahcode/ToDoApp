@@ -37,6 +37,9 @@ inputVal.addEventListener("keydown", checkEnter)
 inputVal.addEventListener("keydown", checkEnter)
 const toDoList = document.querySelector(".todoList")
 let plusButton = document.getElementById("plus")
+const clearDoneButton = document.getElementById("clearDone")
+const deleteBtns = document.querySelectorAll("deleteBtn")
+let editBtn = document.querySelector("editBtn")
 
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === 13) {
@@ -46,13 +49,31 @@ function checkEnter(event) {
 
 /* Click handler for + icon */
 
-/*plusButton.addEventListener("click", function handleClick() {
-  addToDo(inputVal.value)
-  console.log(inputVal.value)
-})
-*/
 plusButton.addEventListener("click", function handleClick() {
   addToDo(inputVal.value)
+})
+
+clearDoneButton.addEventListener("click", function handleClick() {
+  todos = todos.filter((todo) => !todo.todoComplete)
+  toDoList.innerHTML = "" // Clears the toDoList
+  renderToDos(todos)
+})
+
+deleteBtns.forEach((deleteBtn) => {
+  deleteBtn.addEventListener("click", function handleClick() {
+    searchToDo = deleteBtn.parentElement.textContent.trim()
+    searchToDoID = 0
+    todos.forEach((todo) => {
+      if (todo.todoText === searchToDo) {
+        todo.todoDeleted = true
+        return
+      }
+    })
+    console.log("todo found!")
+    // render todos again to deleting one
+    toDoList.innerHTML = "" // Clears the toDoList so the new one can be added
+    renderToDos(todos)
+  })
 })
 
 /*
@@ -86,8 +107,10 @@ function renderToDo(todoItem) {
   newLi.textContent = todoItem.todoText
   if (todoItem.todoComplete) {
     newLi.classList.add("done") //add done class if completed
+    sideBtn.classList.add("deleteBtn")
     sideBtnIcon.classList.add("fa-trash")
   } else {
+    sideBtn.classList.add("editBtn")
     sideBtnIcon.classList.add("fa-pen-to-square")
   }
   toDoList.appendChild(newLi)
