@@ -59,7 +59,7 @@ toDoText should be whatever the user input is.
 function addToDo(newToDo) {
   let toDoObject = {
     toDoID: todos.length,
-    toDoText: `${newToDo}`,
+    toDoText: newToDo,
     todoComplete: false,
     toDoDeleted: false,
   }
@@ -77,6 +77,7 @@ function renderToDos(array) {
       newLi.classList.add("done") //add done class if completed
     }
     toDoList.appendChild(newLi)
+    console.log("rendered call")
   })
 }
 
