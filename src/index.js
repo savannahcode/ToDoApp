@@ -8,16 +8,19 @@ let todos = [
     todoID: 0,
     todoText: "Finish Homework",
     todoComplete: false,
+    toDoDeleted: false,
   },
   {
     todoID: 1,
     todoText: "Walk the dog",
     todoComplete: true,
+    toDoDeleted: false,
   },
   {
     todoID: 2,
     todoText: "Clean my room",
     todoComplete: false,
+    toDoDeleted: false,
   },
 ]
 
@@ -25,11 +28,25 @@ let todos = [
 and hits enter or the + button the addToDo function should be called. */
 const inputVal = document.querySelector(".inputCheck")
 inputVal.addEventListener("keydown", checkEnter)
+inputVal.addEventListener("keydown", checkEnter)
+
 function checkEnter(event) {
-  if (event.key === "Enter" || event.keyCode === "13") {
+  if (event.key === "Enter" || event.keyCode === 13) {
     addToDo(inputVal.value)
   }
 }
+
+/* Click handler for + icon */
+
+/*plusButton.addEventListener("click", function handleClick() {
+  addToDo(inputVal.value)
+  console.log(inputVal.value)
+})
+*/
+let plusButton = document.getElementById("plus")
+plusButton.addEventListener("click", function handleClick() {
+  addToDo(inputVal.value)
+})
 
 /*
 The function addToDo() should create a new object in the toDos array and should
@@ -41,12 +58,26 @@ toDoText should be whatever the user input is.
 
 function addToDo(newToDo) {
   let toDoObject = {
-    toDoID: "x",
+    toDoID: todos.length,
     toDoText: `${newToDo}`,
     todoComplete: false,
     toDoDeleted: false,
   }
-
   todos.push(toDoObject)
   console.log(todos)
+  renderToDos(todos)
 }
+
+const toDoList = document.querySelector(".todoList")
+function renderToDos(array) {
+  array.forEach((todo) => {
+    const newLi = document.createElement("li")
+    newLi.textContent = todo.todoText
+    if (todo.todoComplete) {
+      newLi.classList.add("done") //add done class if completed
+    }
+    toDoList.appendChild(newLi)
+  })
+}
+
+renderToDos(todos)
