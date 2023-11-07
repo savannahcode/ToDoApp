@@ -40,7 +40,7 @@ let plusButton = document.getElementById("plus")
 const clearDoneButton = document.getElementById("clearDone")
 let tasksLeft = document.getElementById("tasksLeft")
 const deleteBtns = document.querySelectorAll("deleteBtn")
-let editBtn = document.querySelector("editBtn")
+let editBtn = document.querySelector(".editBtn")
 
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === 13) {
@@ -60,21 +60,28 @@ clearDoneButton.addEventListener("click", function handleClick() {
   renderToDos(todos)
 })
 
-deleteBtns.forEach((deleteBtn) => {
-  deleteBtn.addEventListener("click", function handleClick() {
-    searchToDo = deleteBtn.parentElement.textContent.trim()
-    searchToDoID = 0
+// delete btns
+toDoList.addEventListener("click", function (event) {
+  // Check if the clicked element has the "deleteBtn" class
+  if (event.target.classList.contains(".deleteBtn")) {
+    // Your delete functionality here
+    // You can access the clicked element with event.target
+    searchToDo = event.target.parentElement.textContent.trim()
+    // searchToDoID = 0
     todos.forEach((todo) => {
       if (todo.todoText === searchToDo) {
         todo.todoDeleted = true
-        return
       }
     })
-    console.log("todo found!")
     // render todos again to deleting one
     toDoList.innerHTML = "" // Clears the toDoList so the new one can be added
     renderToDos(todos)
-  })
+  }
+  // Check if the clicked element has the "editBtn" class
+  if (event.target.classList.contains(".editBtn")) {
+    // Your edit functionality here
+    // You can access the clicked element with event.target
+  }
 })
 
 /*
@@ -108,7 +115,7 @@ function renderToDo(todoItem) {
   newLi.textContent = todoItem.todoText
   if (todoItem.todoComplete) {
     newLi.classList.add("done") //add done class if completed
-    sideBtn.classList.add("deleteBtn")
+    sideBtn.classList.add(".deleteBtn")
     sideBtnIcon.classList.add("fa-trash")
   } else {
     sideBtn.classList.add("editBtn")
