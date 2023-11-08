@@ -34,13 +34,19 @@ let todos = [
 and hits enter or the + button the addToDo function should be called. */
 const inputVal = document.querySelector(".inputCheck")
 inputVal.addEventListener("keydown", checkEnter)
-inputVal.addEventListener("keydown", checkEnter)
 const toDoList = document.querySelector(".todoList")
 let plusButton = document.getElementById("plus")
 const clearDoneButton = document.getElementById("clearDone")
 let tasksLeft = document.getElementById("tasksLeft")
-const deleteBtns = document.querySelectorAll("deleteBtn")
+//const deleteBtns = document.querySelector(".deleteBtn")
 let editBtn = document.querySelector(".editBtn")
+// MODAL items
+// Get the modal
+let modal = document.getElementById("myModal")
+// Get the button that opens the modal
+let btn = document.getElementById("myBtn")
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName("close")[0]
 
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === 13) {
@@ -60,13 +66,21 @@ clearDoneButton.addEventListener("click", function handleClick() {
   renderToDos(todos)
 })
 
-// delete btns
+// delete & edit btns functionality
 toDoList.addEventListener("click", function (event) {
+  console.log("Event target:", event.target)
   // Check if the clicked element has the "deleteBtn" class
-  if (event.target.classList.contains(".deleteBtn")) {
+  if (
+    event.target.classList.contains("deleteBtn") ||
+    event.target.parentElement.classList.contains("deleteBtn")
+  ) {
     // Your delete functionality here
     // You can access the clicked element with event.target
-    searchToDo = event.target.parentElement.textContent.trim()
+    if (event.target.classList.contains("deleteBtn")) {
+      searchToDo = event.target.parentElement.textContent.trim()
+    } else if (event.target.parentElement.classList.contains("deleteBtn")) {
+      searchToDo = event.target.parentElement.parentElement.textContent.trim()
+    }
     // searchToDoID = 0
     todos.forEach((todo) => {
       if (todo.todoText === searchToDo) {
@@ -78,11 +92,28 @@ toDoList.addEventListener("click", function (event) {
     renderToDos(todos)
   }
   // Check if the clicked element has the "editBtn" class
-  if (event.target.classList.contains(".editBtn")) {
-    // Your edit functionality here
-    // You can access the clicked element with event.target
+  if (
+    event.target.classList.contains("editBtn") ||
+    event.target.parentElement.classList.contains("editBtn")
+  ) {
+    console.log("edit btn pushed")
+    // Edit Functionality here
+    // When the user clicks on the button, open the modal
+    modal.style.display = "block"
   }
-})
+}) // FIX HERE
+
+// CLOSE MODAL
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none"
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none"
+    }
+  }
+}
 
 /*
 The function addToDo() should create a new object in the toDos array and should
@@ -115,7 +146,7 @@ function renderToDo(todoItem) {
   newLi.textContent = todoItem.todoText
   if (todoItem.todoComplete) {
     newLi.classList.add("done") //add done class if completed
-    sideBtn.classList.add(".deleteBtn")
+    sideBtn.classList.add("deleteBtn")
     sideBtnIcon.classList.add("fa-trash")
   } else {
     sideBtn.classList.add("editBtn")
