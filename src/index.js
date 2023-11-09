@@ -38,7 +38,6 @@ const toDoList = document.querySelector(".todoList")
 let plusButton = document.getElementById("plus")
 const clearDoneButton = document.getElementById("clearDone")
 let tasksLeft = document.getElementById("tasksLeft")
-//const deleteBtns = document.querySelector(".deleteBtn")
 let editBtn = document.querySelector(".editBtn")
 // MODAL items
 // Get the modal
@@ -46,7 +45,13 @@ let modal = document.getElementById("myModal")
 // Get the button that opens the modal
 let btn = document.getElementById("myBtn")
 // Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0]
+let close = document.getElementsByClassName("close")[0]
+let adjustInput = document.querySelector(".adjustToDo")
+let saveChanges = document.querySelector(".saveChanges")
+let markDone = document.querySelector(".markDone")
+const modalBackground = modal.getElementsByClassName("modal-content")[0]
+// Store the index of the todo being edited
+let editingTodoIndex = -1
 
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === 13) {
@@ -77,8 +82,10 @@ toDoList.addEventListener("click", function (event) {
     // Your delete functionality here
     // You can access the clicked element with event.target
     if (event.target.classList.contains("deleteBtn")) {
+      // for if span was clicked
       searchToDo = event.target.parentElement.textContent.trim()
     } else if (event.target.parentElement.classList.contains("deleteBtn")) {
+      // for if i tag icon was clicked
       searchToDo = event.target.parentElement.parentElement.textContent.trim()
     }
     // searchToDoID = 0
@@ -100,17 +107,86 @@ toDoList.addEventListener("click", function (event) {
     // Edit Functionality here
     // When the user clicks on the button, open the modal
     modal.style.display = "block"
+    if (event.target.classList.contains("editBtn")) {
+      // for if span was clicked
+      adjustInput.value = event.target.parentElement.textContent.trim()
+      searchToDo = adjustInput.value
+    } else if (event.target.parentElement.classList.contains("editBtn")) {
+      // for if i tag icon was clicked
+      adjustInput.value =
+        event.target.parentElement.parentElement.textContent.trim()
+      searchToDo = adjustInput.value
+    }
+    // Store the index of the todo being edited
+    console.log(searchToDo)
+    editingTodoIndex = todos.findIndex((todo) => todo.todoText === searchToDo)
+    console.log(editingTodoIndex)
   }
 }) // FIX HERE
 
 // CLOSE MODAL
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
+close.onclick = function () {
   modal.style.display = "none"
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none"
+    }
+  }
+}
+
+// saveChanges click
+saveChanges.onclick = function () {
+  console.log("save changes")
+  modal.style.display = "none"
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      adjustInput.value
+      modal.style.display = "none"
+    }
+  }
+  // Check if there is a todo being edited
+  if (editingTodoIndex !== -1) {
+    // Update the text of the editing todo
+    todos[editingTodoIndex].todoText = adjustInput.value
+
+    // Reset the editingTodoIndex
+    editingTodoIndex = -1
+
+    // Render the updated to-do list
+    toDoList.innerHTML = ""
+    renderToDos(todos)
+  }
+}
+
+// Close the modal when clicking the modal's background
+modalBackground.addEventListener("click", function (event) {
+  if (event.target === modalBackground) {
+    modal.style.display = "none"
+  }
+})
+
+// markDone click
+markDone.onclick = function () {
+  modal.style.display = "none"
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none"
+    }
+    // Check if there is a todo being edited
+    if (editingTodoIndex !== -1) {
+      // Mark the editing todo as done
+      todos[editingTodoIndex].todoComplete = true
+
+      // Reset the editingTodoIndex
+      editingTodoIndex = -1
+
+      // Render the updated to-do list
+      toDoList.innerHTML = ""
+      renderToDos(todos)
     }
   }
 }
