@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ToDo App</title>
+    <meta charset="UTF-8">
+  <script src="/styles.dd855970.js"></script></head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles.dd855970.css">
+  <body>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Edit ToDo Here</p>
+        <div>
+          <input class="adjustToDo" type="text" placeholder="Enter new task">
+          <button class="saveChanges">Save Changes</button>
+          <button class="markDone">Mark Done</button>
+        </div>
+        <p>Edit ToDo Category</p>
+        <div>
+          <select class="selectPriority">
+            <option value="low">Home</option>
+            <option value="medium">School</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal-->
+    <div class="wrapper">
+      <div class="categoryWrap">
+        <header>To Do List</header>
+        <div>
+          <select class="selectPriority">
+            <option value="low">Home</option>
+            <option value="medium">School</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div>
+      <div class="inputField">
+        <input class="inputCheck" type="text" placeholder="Enter new task">
+        <button id="plus"><i class="fas fa-plus"></i></button>
+      </div>
+      <ul class="todoList">
+        <!--<li class="done">
+          Todo Item 1 (Done example)<span> <i class="fa fa-trash"></i></span>
+        </li>
+        <li>
+          Todo Item 2
+          <span class="editBtn"
+            ><i class="fa-regular fa-pen-to-square"></i
+          ></span>
+          <span> <i class="fa fa-trash"></i></span>
+        </li>-->
+      </ul>
+      <div class="footer">
+        <span id="tasksLeft">You have 1 pending tasks.</span>
+        <button id="clearDone">Clear Done</button>
+      </div>
+    </div>
+
+    <script src="/src.a2b27638.js"></script>
+  </body>
+</html>

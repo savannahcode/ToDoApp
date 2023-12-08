@@ -29,6 +29,8 @@ let todos = [
     todoDeleted: false,
   },
 ]
+// oct 11 @ 11:38
+categories = []
 
 /* if someone types into "Enter new class" text field
 and hits enter or the + button the addToDo function should be called. */

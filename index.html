@@ -16,14 +16,33 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <p>Edit ToDo Here</p>
-        <input class="adjustToDo" type="text" placeholder="Enter new task" />
-        <button class="saveChanges">Save Changes</button>
-        <button class="markDone">Mark Done</button>
+        <div>
+          <input class="adjustToDo" type="text" placeholder="Enter new task" />
+          <button class="saveChanges">Save Changes</button>
+          <button class="markDone">Mark Done</button>
+        </div>
+        <p>Edit ToDo Category</p>
+        <div>
+          <select class="selectPriority">
+            <option value="low">Home</option>
+            <option value="medium">School</option>
+            <option value="high">High</option>
+          </select>
+        </div>
       </div>
     </div>
     <!-- End Modal-->
     <div class="wrapper">
-      <header>To Do List</header>
+      <div class="categoryWrap">
+        <header>To Do List</header>
+        <div>
+          <select class="selectPriority">
+            <option value="low">Home</option>
+            <option value="medium">School</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div>
       <div class="inputField">
         <input class="inputCheck" type="text" placeholder="Enter new task" />
         <button id="plus"><i class="fas fa-plus"></i></button>

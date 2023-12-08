@@ -1,13 +1,16 @@
 {
   "name": "todo-assessment",
   "version": "1.0.0",
-  "description": "",
+  "description": "https://dainty-arithmetic-d08e10.netlify.app/",
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --open",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.2",
     "parcel-bundler": "^1.6.1"
   },
   "devDependencies": {
@@ -17,5 +20,15 @@
   "resolutions": {
     "@babel/preset-env": "7.13.8"
   },
-  "keywords": []
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savannahcode/ToDoApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/savannahcode/ToDoApp/issues"
+  },
+  "homepage": "https://github.com/savannahcode/ToDoApp#readme"
 }
