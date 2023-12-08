@@ -7,7 +7,7 @@ let todos = [
   {
     todoID: 0,
     todoText: "Finish Homework",
-    todoCategory: "TBD",
+    todoCategory: 0,
     todoDueDate: "12/16/2023",
     todoComplete: false,
     todoDeleted: false,
@@ -15,7 +15,7 @@ let todos = [
   {
     todoID: 1,
     todoText: "Walk the dog",
-    todoCategory: "TBD",
+    todoCategory: 0,
     todoDueDate: "12/16/2023",
     todoComplete: true,
     todoDeleted: false,
@@ -23,14 +23,27 @@ let todos = [
   {
     todoID: 2,
     todoText: "Clean my room",
-    todoCategory: "TBD",
+    todoCategory: 0,
     todoDueDate: "12/16/2023",
     todoComplete: false,
     todoDeleted: false,
   },
 ]
 // oct 11 @ 11:38
-categories = []
+let categories = [
+  {
+    id: 0,
+    categoryName: "School",
+  },
+  {
+    id: 1,
+    categoryName: "Work",
+  },
+  {
+    id: 2,
+    categoryName: "Home",
+  },
+]
 
 /* if someone types into "Enter new class" text field
 and hits enter or the + button the addToDo function should be called. */

@@ -126,27 +126,36 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 var todos = [{
   todoID: 0,
   todoText: "Finish Homework",
-  todoCategory: "TBD",
+  todoCategory: 0,
   todoDueDate: "12/16/2023",
   todoComplete: false,
   todoDeleted: false
 }, {
   todoID: 1,
   todoText: "Walk the dog",
-  todoCategory: "TBD",
+  todoCategory: 0,
   todoDueDate: "12/16/2023",
   todoComplete: true,
   todoDeleted: false
 }, {
   todoID: 2,
   todoText: "Clean my room",
-  todoCategory: "TBD",
+  todoCategory: 0,
   todoDueDate: "12/16/2023",
   todoComplete: false,
   todoDeleted: false
 }];
 // oct 11 @ 11:38
-categories = [];
+var categories = [{
+  id: 0,
+  categoryName: "School"
+}, {
+  id: 1,
+  categoryName: "Work"
+}, {
+  id: 2,
+  categoryName: "Home"
+}];
 
 /* if someone types into "Enter new class" text field
 and hits enter or the + button the addToDo function should be called. */
@@ -386,7 +395,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55680" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57129" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
