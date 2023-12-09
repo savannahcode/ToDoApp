@@ -126,21 +126,21 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 var todos = [{
   todoID: 0,
   todoText: "Finish Homework",
-  todoCategory: 0,
+  todoCategory: 1,
   todoDueDate: "12/16/2023",
   todoComplete: false,
   todoDeleted: false
 }, {
   todoID: 1,
   todoText: "Walk the dog",
-  todoCategory: 0,
+  todoCategory: 3,
   todoDueDate: "12/16/2023",
   todoComplete: true,
   todoDeleted: false
 }, {
   todoID: 2,
   todoText: "Clean my room",
-  todoCategory: 0,
+  todoCategory: 3,
   todoDueDate: "12/16/2023",
   todoComplete: false,
   todoDeleted: false
@@ -148,13 +148,19 @@ var todos = [{
 // oct 11 @ 11:38
 var categories = [{
   id: 0,
-  categoryName: "Home"
+  categoryName: "All To Dos"
 }, {
   id: 1,
   categoryName: "School"
 }, {
   id: 2,
-  categoryName: "Personal"
+  categoryName: "Work"
+}, {
+  id: 3,
+  categoryName: "Home"
+}, {
+  id: 4,
+  categoryName: "Other"
 }];
 
 /* if someone types into "Enter new class" text field
@@ -167,29 +173,58 @@ var clearDoneButton = document.getElementById("clearDone");
 var tasksLeft = document.getElementById("tasksLeft");
 var editBtn = document.querySelector(".editBtn");
 // EDIT TO DO MODAL items
-// Get the edit modal
+// Get the edit to do modal
 var editModal = document.getElementById("editModal");
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
-var close = document.getElementsByClassName("close")[0];
+var close = document.getElementsByClassName("close");
 var adjustInput = document.querySelector(".adjustToDo");
 var saveChanges = document.querySelector(".saveChanges");
 var markDone = document.querySelector(".markDone");
-var modalBackground = modal.getElementsByClassName("modal-content")[0];
+var allModals = document.getElementsByClassName("modal");
+var modalBackground = editModal.getElementsByClassName("modal-content")[0];
 // Store the index of the todo being edited
 var editingTodoIndex = -1;
+// category modal stuff
+var categoryEditBtn = document.querySelector("#catEditBtn");
+var categoriesModal = document.querySelector("#categoriesModal");
+// view categories Stuff
+var viewBtn = document.querySelector("#viewBtn");
+var viewSelect = document.getElementsByClassName("viewSelect");
+
+// Populate viewSelect with categories
+categories.forEach(function (category) {
+  // Create a new option element
+  var option = document.createElement("option");
+  option.value = category.id;
+  option.text = category.categoryName;
+
+  // Append the option to each viewSelect
+  for (var i = 0; i < viewSelect.length; i++) {
+    // Clone the option for each select
+    var optionClone = option.cloneNode(true);
+    viewSelect[i].appendChild(optionClone);
+  }
+});
+
+// Click handler for + icon
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === 13) {
     addToDo(inputVal.value);
   }
 }
+categoryEditBtn.onclick = function () {
+  // open The Categories Modal
+  categoriesModal.style.display = "block";
+};
 
-/* Click handler for + icon */
-
+// Click handler for edit category button
 plusButton.addEventListener("click", function handleClick() {
   addToDo(inputVal.value);
 });
+
+// Click handler for clear done button
 clearDoneButton.addEventListener("click", function handleClick() {
   todos = todos.filter(function (todo) {
     return !todo.todoComplete;
@@ -248,15 +283,28 @@ toDoList.addEventListener("click", function (event) {
 
 // CLOSE MODAL
 // When the user clicks on <span> (x), close the modal
-close.onclick = function () {
-  editModal.style.display = "none";
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == editModal) {
-      editModal.style.display = "none";
+for (var i = 0; i < close.length; i++) {
+  close[i].addEventListener("click", function () {
+    for (var j = 0; j < allModals.length; j++) {
+      allModals[j].style.display = "none";
     }
-  };
+  });
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == editModal) {
+    editModal.style.display = "none";
+  } else if (event.target == categoriesModal) {
+    categoriesModal.style.display = "none";
+  }
 };
+
+// Close the modal when clicking the modal's background
+modalBackground.addEventListener("click", function (event) {
+  if (event.target === modalBackground) {
+    categoriesModal.style.display = "none";
+  }
+});
 
 // saveChanges click
 saveChanges.onclick = function () {
@@ -396,7 +444,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57129" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64361" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

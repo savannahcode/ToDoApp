@@ -146,11 +146,11 @@ button {
   height: fit-content;
 }
 
-#catEditBtn{
+#catEditPic{
   transition: all .2s ease-in-out;
 }
 
-#catEditBtn:hover{
+#catEditPic:hover{
   transform: scale(1.1);
   color:#464646;
 }

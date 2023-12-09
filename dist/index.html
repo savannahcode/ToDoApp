@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="/styles.dd855970.css">
   <body>
-    <!-- The Modal -->
+    <!-- The Edit Modal -->
     <div id="editModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
@@ -20,7 +20,7 @@
         </div>
         <p>Edit ToDo Category</p>
         <div>
-          <select class="selectPriority">
+          <select class="categoryMenu">
             <option>Home</option>
             <option>School</option>
             <option>Personal</option>
@@ -30,16 +30,65 @@
       </div>
     </div>
     <!-- End Modal-->
+    <!-- The Select Category Modal -->
+    <div id="selectCategoryModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Select the category for your new To Do here:</p>
+        <div>
+          <select class="viewSelect"></select>
+          <button class="saveChanges">Select Category</button>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal-->
+    <!-- The Categories Modal -->
+    <div id="categoriesModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Categories</h2>
+        <!--Edit Category Section -->
+        <div>
+          <h3>Edit</h3>
+          <div>
+            <p>Select the category you want to edit:</p>
+            <select class="viewSelect"></select>
+            <button class="saveChanges">Edit This Category</button>
+          </div>
+          <div>
+            <input class="adjustCategory" type="text" placeholder="Enter edited category title">
+            <button class="saveChanges">Save Changes</button>
+          </div>
+        </div>
+        <!--Add Category Section -->
+        <div>
+          <h3>Add</h3>
+          <div>
+            <input class="addCategory" type="text" placeholder="Enter new category title">
+            <button class="saveChanges">Add Category</button>
+          </div>
+        </div>
+        <!--Delete Category Section -->
+        <div>
+          <h3>Delete</h3>
+          <div>
+            <p>Select the category you want to delete:</p>
+            <select class="viewSelect"></select>
+            <button class="saveChanges">Delete This Category</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal-->
     <div class="wrapper">
       <div class="categoryWrap">
         <header>To Do List</header>
-        <div>
-          <select class="selectPriority">
-            <option>Home</option>
-            <option>School</option>
-            <option>Personal</option>
-          </select>
-          <span class="editBtn"><i class="fa-regular fa-pen-to-square"></i></span>
+        <div id="categorySelectSection">
+          <span class="editBtn" id="catEditBtn"><i id="catEditPic" class="fa-regular fa-pen-to-square"></i></span>
+          <select class="viewSelect"></select>
+          <button id="viewBtn">View</button>
         </div>
       </div>
       <div class="inputField">

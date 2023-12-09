@@ -7,7 +7,7 @@ let todos = [
   {
     todoID: 0,
     todoText: "Finish Homework",
-    todoCategory: 0,
+    todoCategory: 1,
     todoDueDate: "12/16/2023",
     todoComplete: false,
     todoDeleted: false,
@@ -15,7 +15,7 @@ let todos = [
   {
     todoID: 1,
     todoText: "Walk the dog",
-    todoCategory: 0,
+    todoCategory: 3,
     todoDueDate: "12/16/2023",
     todoComplete: true,
     todoDeleted: false,
@@ -23,7 +23,7 @@ let todos = [
   {
     todoID: 2,
     todoText: "Clean my room",
-    todoCategory: 0,
+    todoCategory: 3,
     todoDueDate: "12/16/2023",
     todoComplete: false,
     todoDeleted: false,
@@ -33,7 +33,23 @@ let todos = [
 let categories = [
   {
     id: 0,
-    categoryName: "All",
+    categoryName: "All To Dos",
+  },
+  {
+    id: 1,
+    categoryName: "School",
+  },
+  {
+    id: 2,
+    categoryName: "Work",
+  },
+  {
+    id: 3,
+    categoryName: "Home",
+  },
+  {
+    id: 4,
+    categoryName: "Other",
   },
 ]
 
@@ -52,26 +68,54 @@ let editModal = document.getElementById("editModal")
 // Get the button that opens the modal
 let btn = document.getElementById("myBtn")
 // Get the <span> element that closes the modal
-let close = document.getElementsByClassName("close")[0]
+let close = document.getElementsByClassName("close")
 let adjustInput = document.querySelector(".adjustToDo")
 let saveChanges = document.querySelector(".saveChanges")
 let markDone = document.querySelector(".markDone")
+const allModals = document.getElementsByClassName("modal")
 const modalBackground = editModal.getElementsByClassName("modal-content")[0]
 // Store the index of the todo being edited
 let editingTodoIndex = -1
+// category modal stuff
+let categoryEditBtn = document.querySelector("#catEditBtn")
+let categoriesModal = document.querySelector("#categoriesModal")
+// view categories Stuff
+let viewBtn = document.querySelector("#viewBtn")
+let viewSelect = document.getElementsByClassName("viewSelect")
 
+// Populate viewSelect with categories
+categories.forEach(function (category) {
+  // Create a new option element
+  const option = document.createElement("option")
+  option.value = category.id
+  option.text = category.categoryName
+
+  // Append the option to each viewSelect
+  for (let i = 0; i < viewSelect.length; i++) {
+    // Clone the option for each select
+    let optionClone = option.cloneNode(true)
+    viewSelect[i].appendChild(optionClone)
+  }
+})
+
+// Click handler for + icon
 function checkEnter(event) {
   if (event.key === "Enter" || event.keyCode === 13) {
     addToDo(inputVal.value)
   }
 }
 
-/* Click handler for + icon */
+categoryEditBtn.onclick = function () {
+  // open The Categories Modal
+  categoriesModal.style.display = "block"
+}
 
+// Click handler for edit category button
 plusButton.addEventListener("click", function handleClick() {
   addToDo(inputVal.value)
 })
 
+// Click handler for clear done button
 clearDoneButton.addEventListener("click", function handleClick() {
   todos = todos.filter((todo) => !todo.todoComplete)
   toDoList.innerHTML = "" // Clears the toDoList
@@ -133,15 +177,28 @@ toDoList.addEventListener("click", function (event) {
 
 // CLOSE MODAL
 // When the user clicks on <span> (x), close the modal
-close.onclick = function () {
-  editModal.style.display = "none"
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == editModal) {
-      editModal.style.display = "none"
+for (let i = 0; i < close.length; i++) {
+  close[i].addEventListener("click", function () {
+    for (let j = 0; j < allModals.length; j++) {
+      allModals[j].style.display = "none"
     }
+  })
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == editModal) {
+    editModal.style.display = "none"
+  } else if (event.target == categoriesModal) {
+    categoriesModal.style.display = "none"
   }
 }
+
+// Close the modal when clicking the modal's background
+modalBackground.addEventListener("click", function (event) {
+  if (event.target === modalBackground) {
+    categoriesModal.style.display = "none"
+  }
+})
 
 // saveChanges click
 saveChanges.onclick = function () {

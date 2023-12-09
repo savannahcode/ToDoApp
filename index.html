@@ -23,7 +23,7 @@
         </div>
         <p>Edit ToDo Category</p>
         <div>
-          <select class="selectPriority">
+          <select class="categoryMenu">
             <option>Home</option>
             <option>School</option>
             <option>Personal</option>
@@ -40,11 +40,7 @@
         <span class="close">&times;</span>
         <p>Select the category for your new To Do here:</p>
         <div>
-          <select class="selectPriority">
-            <option>Home</option>
-            <option>School</option>
-            <option>Personal</option>
-          </select>
+          <select class="viewSelect"></select>
           <button class="saveChanges">Select Category</button>
         </div>
       </div>
@@ -55,14 +51,44 @@
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Select the category for your new To Do here:</p>
+        <h2>Categories</h2>
+        <!--Edit Category Section -->
         <div>
-          <select class="selectPriority">
-            <option>Home</option>
-            <option>School</option>
-            <option>Personal</option>
-          </select>
-          <button class="saveChanges">Select Category</button>
+          <h3>Edit</h3>
+          <div>
+            <p>Select the category you want to edit:</p>
+            <select class="viewSelect"></select>
+            <button class="saveChanges">Edit This Category</button>
+          </div>
+          <div>
+            <input
+              class="adjustCategory"
+              type="text"
+              placeholder="Enter edited category title"
+            />
+            <button class="saveChanges">Save Changes</button>
+          </div>
+        </div>
+        <!--Add Category Section -->
+        <div>
+          <h3>Add</h3>
+          <div>
+            <input
+              class="addCategory"
+              type="text"
+              placeholder="Enter new category title"
+            />
+            <button class="saveChanges">Add Category</button>
+          </div>
+        </div>
+        <!--Delete Category Section -->
+        <div>
+          <h3>Delete</h3>
+          <div>
+            <p>Select the category you want to delete:</p>
+            <select class="viewSelect"></select>
+            <button class="saveChanges">Delete This Category</button>
+          </div>
         </div>
       </div>
     </div>
@@ -71,12 +97,10 @@
       <div class="categoryWrap">
         <header>To Do List</header>
         <div id="categorySelectSection">
-          <span class="editBtn"
-            ><i id="catEditBtn" class="fa-regular fa-pen-to-square"></i
+          <span class="editBtn" id="catEditBtn"
+            ><i id="catEditPic" class="fa-regular fa-pen-to-square"></i
           ></span>
-          <select>
-            <option>All To Dos</option>
-          </select>
+          <select class="viewSelect"></select>
           <button id="viewBtn">View</button>
         </div>
       </div>
