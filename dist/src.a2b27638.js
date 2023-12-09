@@ -148,13 +148,13 @@ var todos = [{
 // oct 11 @ 11:38
 var categories = [{
   id: 0,
-  categoryName: "School"
+  categoryName: "Home"
 }, {
   id: 1,
-  categoryName: "Work"
+  categoryName: "School"
 }, {
   id: 2,
-  categoryName: "Home"
+  categoryName: "Personal"
 }];
 
 /* if someone types into "Enter new class" text field
@@ -166,9 +166,9 @@ var plusButton = document.getElementById("plus");
 var clearDoneButton = document.getElementById("clearDone");
 var tasksLeft = document.getElementById("tasksLeft");
 var editBtn = document.querySelector(".editBtn");
-// MODAL items
-// Get the modal
-var modal = document.getElementById("myModal");
+// EDIT TO DO MODAL items
+// Get the edit modal
+var editModal = document.getElementById("editModal");
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
@@ -227,7 +227,7 @@ toDoList.addEventListener("click", function (event) {
     console.log("edit btn pushed");
     // Edit Functionality here
     // When the user clicks on the button, open the modal
-    modal.style.display = "block";
+    editModal.style.display = "block";
     if (event.target.classList.contains("editBtn")) {
       // for if span was clicked
       adjustInput.value = event.target.parentElement.textContent.trim();
@@ -249,11 +249,11 @@ toDoList.addEventListener("click", function (event) {
 // CLOSE MODAL
 // When the user clicks on <span> (x), close the modal
 close.onclick = function () {
-  modal.style.display = "none";
+  editModal.style.display = "none";
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
+    if (event.target == editModal) {
+      editModal.style.display = "none";
     }
   };
 };
@@ -261,12 +261,12 @@ close.onclick = function () {
 // saveChanges click
 saveChanges.onclick = function () {
   console.log("save changes");
-  modal.style.display = "none";
+  editModal.style.display = "none";
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target == editModal) {
       adjustInput.value;
-      modal.style.display = "none";
+      editModal.style.display = "none";
     }
   };
   // Check if there is a todo being edited
@@ -286,17 +286,17 @@ saveChanges.onclick = function () {
 // Close the modal when clicking the modal's background
 modalBackground.addEventListener("click", function (event) {
   if (event.target === modalBackground) {
-    modal.style.display = "none";
+    editModal.style.display = "none";
   }
 });
 
 // markDone click
 markDone.onclick = function () {
-  modal.style.display = "none";
+  editModal.style.display = "none";
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
+    if (event.target == editModal) {
+      editModal.style.display = "none";
     }
     // Check if there is a todo being edited
     if (editingTodoIndex !== -1) {
@@ -322,6 +322,7 @@ toDoText should be whatever the user input is.
 */
 
 function addToDo(newToDo) {
+  // call the modal to select the category
   var toDoObject = {
     todoID: todos.length,
     todoText: newToDo,

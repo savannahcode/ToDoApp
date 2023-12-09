@@ -141,6 +141,19 @@ button {
   font-size: 16px;
   padding: 6px 10px;
 }
+#viewBtn{
+  padding: .2rem;
+  height: fit-content;
+}
+
+#catEditBtn{
+  transition: all .2s ease-in-out;
+}
+
+#catEditBtn:hover{
+  transform: scale(1.1);
+  color:#464646;
+}
 
 /* MODAL CSS START */
 /* The Modal (background) */

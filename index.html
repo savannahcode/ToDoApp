@@ -10,8 +10,8 @@
   />
   <link rel="stylesheet" href="src/styles.css" />
   <body>
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <!-- The Edit Modal -->
+    <div id="editModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -26,9 +26,43 @@
           <select class="selectPriority">
             <option>Home</option>
             <option>School</option>
-            <option>High</option>
+            <option>Personal</option>
           </select>
           <button class="saveChanges">Save Changes</button>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal-->
+    <!-- The Select Category Modal -->
+    <div id="selectCategoryModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Select the category for your new To Do here:</p>
+        <div>
+          <select class="selectPriority">
+            <option>Home</option>
+            <option>School</option>
+            <option>Personal</option>
+          </select>
+          <button class="saveChanges">Select Category</button>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal-->
+    <!-- The Categories Modal -->
+    <div id="categoriesModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Select the category for your new To Do here:</p>
+        <div>
+          <select class="selectPriority">
+            <option>Home</option>
+            <option>School</option>
+            <option>Personal</option>
+          </select>
+          <button class="saveChanges">Select Category</button>
         </div>
       </div>
     </div>
@@ -36,15 +70,14 @@
     <div class="wrapper">
       <div class="categoryWrap">
         <header>To Do List</header>
-        <div>
-          <select class="selectPriority">
-            <option>Home</option>
-            <option>School</option>
-            <option>High</option>
-          </select>
+        <div id="categorySelectSection">
           <span class="editBtn"
-            ><i class="fa-regular fa-pen-to-square"></i
+            ><i id="catEditBtn" class="fa-regular fa-pen-to-square"></i
           ></span>
+          <select>
+            <option>All To Dos</option>
+          </select>
+          <button id="viewBtn">View</button>
         </div>
       </div>
       <div class="inputField">

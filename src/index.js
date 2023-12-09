@@ -33,15 +33,7 @@ let todos = [
 let categories = [
   {
     id: 0,
-    categoryName: "School",
-  },
-  {
-    id: 1,
-    categoryName: "Work",
-  },
-  {
-    id: 2,
-    categoryName: "Home",
+    categoryName: "All",
   },
 ]
 
@@ -54,9 +46,9 @@ let plusButton = document.getElementById("plus")
 const clearDoneButton = document.getElementById("clearDone")
 let tasksLeft = document.getElementById("tasksLeft")
 let editBtn = document.querySelector(".editBtn")
-// MODAL items
-// Get the modal
-let modal = document.getElementById("myModal")
+// EDIT TO DO MODAL items
+// Get the edit to do modal
+let editModal = document.getElementById("editModal")
 // Get the button that opens the modal
 let btn = document.getElementById("myBtn")
 // Get the <span> element that closes the modal
@@ -64,7 +56,7 @@ let close = document.getElementsByClassName("close")[0]
 let adjustInput = document.querySelector(".adjustToDo")
 let saveChanges = document.querySelector(".saveChanges")
 let markDone = document.querySelector(".markDone")
-const modalBackground = modal.getElementsByClassName("modal-content")[0]
+const modalBackground = editModal.getElementsByClassName("modal-content")[0]
 // Store the index of the todo being edited
 let editingTodoIndex = -1
 
@@ -121,7 +113,7 @@ toDoList.addEventListener("click", function (event) {
     console.log("edit btn pushed")
     // Edit Functionality here
     // When the user clicks on the button, open the modal
-    modal.style.display = "block"
+    editModal.style.display = "block"
     if (event.target.classList.contains("editBtn")) {
       // for if span was clicked
       adjustInput.value = event.target.parentElement.textContent.trim()
@@ -142,11 +134,11 @@ toDoList.addEventListener("click", function (event) {
 // CLOSE MODAL
 // When the user clicks on <span> (x), close the modal
 close.onclick = function () {
-  modal.style.display = "none"
+  editModal.style.display = "none"
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none"
+    if (event.target == editModal) {
+      editModal.style.display = "none"
     }
   }
 }
@@ -154,12 +146,12 @@ close.onclick = function () {
 // saveChanges click
 saveChanges.onclick = function () {
   console.log("save changes")
-  modal.style.display = "none"
+  editModal.style.display = "none"
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target == editModal) {
       adjustInput.value
-      modal.style.display = "none"
+      editModal.style.display = "none"
     }
   }
   // Check if there is a todo being edited
@@ -179,17 +171,17 @@ saveChanges.onclick = function () {
 // Close the modal when clicking the modal's background
 modalBackground.addEventListener("click", function (event) {
   if (event.target === modalBackground) {
-    modal.style.display = "none"
+    editModal.style.display = "none"
   }
 })
 
 // markDone click
 markDone.onclick = function () {
-  modal.style.display = "none"
+  editModal.style.display = "none"
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none"
+    if (event.target == editModal) {
+      editModal.style.display = "none"
     }
     // Check if there is a todo being edited
     if (editingTodoIndex !== -1) {
@@ -215,6 +207,7 @@ toDoText should be whatever the user input is.
 */
 
 function addToDo(newToDo) {
+  // call the modal to select the category
   let toDoObject = {
     todoID: todos.length,
     todoText: newToDo,
