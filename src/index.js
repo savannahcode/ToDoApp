@@ -82,20 +82,62 @@ let categoriesModal = document.querySelector("#categoriesModal")
 // view categories Stuff
 let viewBtn = document.querySelector("#viewBtn")
 let viewSelect = document.getElementsByClassName("viewSelect")
+let categoryMenuSelect = document.getElementById("categoryMenuSelect")
 
 // Populate viewSelect with categories
-categories.forEach(function (category) {
-  // Create a new option element
-  const option = document.createElement("option")
-  option.value = category.id
-  option.text = category.categoryName
+function populateViewSelect() {
+  categories.forEach(function (category) {
+    // Create a new option element
+    const option = document.createElement("option")
+    option.value = category.id
+    option.text = category.categoryName
 
-  // Append the option to each viewSelect
-  for (let i = 0; i < viewSelect.length; i++) {
-    // Clone the option for each select
-    let optionClone = option.cloneNode(true)
-    viewSelect[i].appendChild(optionClone)
+    // Append the option to each viewSelect
+    for (let i = 0; i < viewSelect.length; i++) {
+      // Clone the option for each select
+      let optionClone = option.cloneNode(true)
+      viewSelect[i].appendChild(optionClone)
+    }
+  })
+}
+populateViewSelect()
+
+// find id of the selected category via text
+function getCategoryId(categories, selectedText) {
+  // Loop through the categories array
+  for (let i = 0; i < categories.length; i++) {
+    // Check if the text of the current category matches the selected text
+    if (categories[i].categoryName === selectedText) {
+      // If it does, return the id of the current category
+      return categories[i].id
+    }
   }
+  // If no matching category is found, return null
+  return null
+}
+
+viewBtn.addEventListener("click", function () {
+  console.log("view btn pushed")
+  // get selected category name
+  const selectedCategoryName =
+    categoryMenuSelect.options[categoryMenuSelect.selectedIndex].text
+  console.log(selectedCategoryName)
+  // get the id of the selected category
+  const selectedCategoryId = getCategoryId(
+    categories,
+    selectedCategoryName.trim()
+  )
+  // run render toDos, but updating the function to only render the correct todos by the category
+  if (selectedCategoryName === "All To Dos") {
+    toDoList.innerHTML = "" // Clears the toDoList
+    renderToDos(todos)
+  } else {
+    toDoList.innerHTML = "" // Clears the toDoList
+    renderToDos(
+      todos.filter((todo) => todo.todoCategory === selectedCategoryId)
+    )
+  }
+  console.log(todos)
 })
 
 // Click handler for + icon

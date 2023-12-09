@@ -192,20 +192,57 @@ var categoriesModal = document.querySelector("#categoriesModal");
 // view categories Stuff
 var viewBtn = document.querySelector("#viewBtn");
 var viewSelect = document.getElementsByClassName("viewSelect");
+var categoryMenuSelect = document.getElementById("categoryMenuSelect");
 
 // Populate viewSelect with categories
-categories.forEach(function (category) {
-  // Create a new option element
-  var option = document.createElement("option");
-  option.value = category.id;
-  option.text = category.categoryName;
+function populateViewSelect() {
+  categories.forEach(function (category) {
+    // Create a new option element
+    var option = document.createElement("option");
+    option.value = category.id;
+    option.text = category.categoryName;
 
-  // Append the option to each viewSelect
-  for (var i = 0; i < viewSelect.length; i++) {
-    // Clone the option for each select
-    var optionClone = option.cloneNode(true);
-    viewSelect[i].appendChild(optionClone);
+    // Append the option to each viewSelect
+    for (var i = 0; i < viewSelect.length; i++) {
+      // Clone the option for each select
+      var optionClone = option.cloneNode(true);
+      viewSelect[i].appendChild(optionClone);
+    }
+  });
+}
+populateViewSelect();
+
+// find id of the selected category via text
+function getCategoryId(categories, selectedText) {
+  // Loop through the categories array
+  for (var i = 0; i < categories.length; i++) {
+    // Check if the text of the current category matches the selected text
+    if (categories[i].categoryName === selectedText) {
+      // If it does, return the id of the current category
+      return categories[i].id;
+    }
   }
+  // If no matching category is found, return null
+  return null;
+}
+viewBtn.addEventListener("click", function () {
+  console.log("view btn pushed");
+  // get selected category name
+  var selectedCategoryName = categoryMenuSelect.options[categoryMenuSelect.selectedIndex].text;
+  console.log(selectedCategoryName);
+  // get the id of the selected category
+  var selectedCategoryId = getCategoryId(categories, selectedCategoryName.trim());
+  // run render toDos, but updating the function to only render the correct todos by the category
+  if (selectedCategoryName === "All To Dos") {
+    toDoList.innerHTML = ""; // Clears the toDoList
+    renderToDos(todos);
+  } else {
+    toDoList.innerHTML = ""; // Clears the toDoList
+    renderToDos(todos.filter(function (todo) {
+      return todo.todoCategory === selectedCategoryId;
+    }));
+  }
+  console.log(todos);
 });
 
 // Click handler for + icon
@@ -444,7 +481,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64361" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51857" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
