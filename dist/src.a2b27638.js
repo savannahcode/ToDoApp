@@ -199,6 +199,11 @@ var newToDoCatSelectBtn = document.querySelector("#newToDoCatSelectBtn");
 // delete category stuff
 var deleteCatBtn = document.querySelector("#deleteCatBtn");
 var deleteCatSelect = document.querySelector("#deleteCatSelect");
+// edit Category stuff
+var editCatBtn = document.querySelector("#editCatBtn");
+var editCatSelect = document.querySelector("#editCatSelect");
+var editCatInput = document.querySelector("#editCatInput");
+var saveCatBtn = document.querySelector("#saveCatBtn");
 
 // Populate viewSelect with categories
 function populateViewSelect() {
@@ -255,7 +260,27 @@ viewBtn.addEventListener("click", function () {
       return todo.todoCategory === selectedCategoryId;
     }));
   }
-  console.log(todos);
+});
+editCatBtn.addEventListener("click", function () {
+  // get selected category name
+  var editIdText = editCatSelect.options[editCatSelect.selectedIndex].text;
+  editId = getCategoryId(categories, editIdText);
+  // after we have the correct category id to use later to change the text of the category being edited, we need to put the name of the category into the input field for the user to change
+  editCatInput.value = editIdText;
+});
+
+// get the input of editCatInput and save it to the correct category
+saveCatBtn.addEventListener("click", function () {
+  var editIdText = editCatSelect.options[editCatSelect.selectedIndex].text;
+  editId = getCategoryId(categories, editIdText);
+  for (var i = 0; i < categories.length; i++) {
+    // Check if the id of the current category matches the editId for the category to be edited
+    if (categories[i].categoryName === editIdText) {
+      // If it does, change the name of that category to the new name
+      categories[i].categoryName = editCatInput.value;
+    }
+  }
+  populateViewSelect();
 });
 
 // delete category functionality

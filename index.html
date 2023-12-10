@@ -54,16 +54,19 @@
           <h3>Edit</h3>
           <div>
             <p>Select the category you want to edit:</p>
-            <select class="viewSelect"></select>
-            <button class="saveChanges">Edit This Category</button>
+            <select class="viewSelect" id="editCatSelect"></select>
+            <button class="saveChanges" id="editCatBtn">
+              Edit This Category
+            </button>
           </div>
           <div>
             <input
               class="adjustCategory"
+              id="editCatInput"
               type="text"
               placeholder="Enter edited category title"
             />
-            <button class="saveChanges">Save Changes</button>
+            <button class="saveChanges" id="saveCatBtn">Save Changes</button>
           </div>
         </div>
         <!--Add Category Section -->
