@@ -86,9 +86,17 @@ let categoryMenuSelect = document.getElementById("categoryMenuSelect")
 // new to do category stuff
 let newToDoCatSelect = document.querySelector("#newToDoCatSelect")
 let newToDoCatSelectBtn = document.querySelector("#newToDoCatSelectBtn")
+// delete category stuff
+let deleteCatBtn = document.querySelector("#deleteCatBtn")
+let deleteCatSelect = document.querySelector("#deleteCatSelect")
 
 // Populate viewSelect with categories
 function populateViewSelect() {
+  // clear viewSelect before appending options
+  for (let i = 0; i < viewSelect.length; i++) {
+    viewSelect[i].innerHTML = ""
+  }
+  // Loop through the categories array to add all options
   categories.forEach(function (category) {
     // Create a new option element
     const option = document.createElement("option")
@@ -144,15 +152,21 @@ viewBtn.addEventListener("click", function () {
   console.log(todos)
 })
 
-// May be addressed in the addToDo function
-/*
-newToDoCatSelectBtn.addEventListener("click", function () {
-  const selectedCategoryName =
-  newToDoCatSelect.options[newToDoCatSelect.selectedIndex].text
-  console.log(selectedCategoryName)
-  getCategoryId(categories, selectedCategoryName.trim())
+// delete category functionality
+deleteCatBtn.addEventListener("click", function () {
+  // get selected category name
+  let deleteIdText = deleteCatSelect.options[deleteCatSelect.selectedIndex].text
+  deleteId = getCategoryId(categories, deleteIdText)
+  for (let i = 0; i < categories.length; i++) {
+    // Check if the id of the current category matches the deleteId for the category to be deleted
+    if (categories[i].id === deleteId) {
+      // If it does, delete that category
+      categories.splice(i, 1)
+    }
+  }
+  // another time add functionality to not allow user to delete "All To Dos" category, or to delete a category that still has toDos in it. Will not do now due to time constraints
+  populateViewSelect()
 })
-*/
 
 // Click handler for + icon
 function checkEnter(event) {
