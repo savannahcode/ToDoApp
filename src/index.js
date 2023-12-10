@@ -83,6 +83,9 @@ let categoriesModal = document.querySelector("#categoriesModal")
 let viewBtn = document.querySelector("#viewBtn")
 let viewSelect = document.getElementsByClassName("viewSelect")
 let categoryMenuSelect = document.getElementById("categoryMenuSelect")
+// new to do category stuff
+let newToDoCatSelect = document.querySelector("#newToDoCatSelect")
+let newToDoCatSelectBtn = document.querySelector("#newToDoCatSelectBtn")
 
 // Populate viewSelect with categories
 function populateViewSelect() {
@@ -116,6 +119,7 @@ function getCategoryId(categories, selectedText) {
   return null
 }
 
+// hitting View Btn shows to dos by category
 viewBtn.addEventListener("click", function () {
   console.log("view btn pushed")
   // get selected category name
@@ -139,6 +143,16 @@ viewBtn.addEventListener("click", function () {
   }
   console.log(todos)
 })
+
+// May be addressed in the addToDo function
+/*
+newToDoCatSelectBtn.addEventListener("click", function () {
+  const selectedCategoryName =
+  newToDoCatSelect.options[newToDoCatSelect.selectedIndex].text
+  console.log(selectedCategoryName)
+  getCategoryId(categories, selectedCategoryName.trim())
+})
+*/
 
 // Click handler for + icon
 function checkEnter(event) {
@@ -307,18 +321,31 @@ toDoText should be whatever the user input is.
 
 function addToDo(newToDo) {
   // call the modal to select the category
-  let toDoObject = {
-    todoID: todos.length,
-    todoText: newToDo,
-    todoCategory: "TBD",
-    todoDueDate: "TBD",
-    todoComplete: false,
-    todoDeleted: false,
+  selectCategoryModal.style.display = "block"
+  // Once "Select Category" button is clicked in modal, the category is selected for the new ToDo
+  newToDoCatSelectBtn.onclick = function () {
+    const selectedCategoryName =
+      newToDoCatSelect.options[newToDoCatSelect.selectedIndex].text
+    console.log(selectedCategoryName)
+    const selectedCategoryId = getCategoryId(
+      categories,
+      selectedCategoryName.trim()
+    )
+    // newToDoCatSelect is the select for this modal
+    let toDoObject = {
+      todoID: todos.length,
+      todoText: newToDo,
+      todoCategory: selectedCategoryId,
+      todoDueDate: "TBD",
+      todoComplete: false,
+      todoDeleted: false,
+    }
+    todos.push(toDoObject)
+    console.log(todos)
+    toDoList.innerHTML = "" // Clears the toDoList so the new one can be added
+    renderToDos(todos)
+    selectCategoryModal.style.display = "none"
   }
-  todos.push(toDoObject)
-  console.log(todos)
-  toDoList.innerHTML = "" // Clears the toDoList so the new one can be added
-  renderToDos(todos)
 }
 
 function renderToDo(todoItem) {

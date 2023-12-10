@@ -193,6 +193,9 @@ var categoriesModal = document.querySelector("#categoriesModal");
 var viewBtn = document.querySelector("#viewBtn");
 var viewSelect = document.getElementsByClassName("viewSelect");
 var categoryMenuSelect = document.getElementById("categoryMenuSelect");
+// new to do category stuff
+var newToDoCatSelect = document.querySelector("#newToDoCatSelect");
+var newToDoCatSelectBtn = document.querySelector("#newToDoCatSelectBtn");
 
 // Populate viewSelect with categories
 function populateViewSelect() {
@@ -225,6 +228,8 @@ function getCategoryId(categories, selectedText) {
   // If no matching category is found, return null
   return null;
 }
+
+// hitting View Btn shows to dos by category
 viewBtn.addEventListener("click", function () {
   console.log("view btn pushed");
   // get selected category name
@@ -244,6 +249,16 @@ viewBtn.addEventListener("click", function () {
   }
   console.log(todos);
 });
+
+// May be addressed in the addToDo function
+/*
+newToDoCatSelectBtn.addEventListener("click", function () {
+  const selectedCategoryName =
+  newToDoCatSelect.options[newToDoCatSelect.selectedIndex].text
+  console.log(selectedCategoryName)
+  getCategoryId(categories, selectedCategoryName.trim())
+})
+*/
 
 // Click handler for + icon
 function checkEnter(event) {
@@ -408,18 +423,27 @@ toDoText should be whatever the user input is.
 
 function addToDo(newToDo) {
   // call the modal to select the category
-  var toDoObject = {
-    todoID: todos.length,
-    todoText: newToDo,
-    todoCategory: "TBD",
-    todoDueDate: "TBD",
-    todoComplete: false,
-    todoDeleted: false
+  selectCategoryModal.style.display = "block";
+  // Once "Select Category" button is clicked in modal, the category is selected for the new ToDo
+  newToDoCatSelectBtn.onclick = function () {
+    var selectedCategoryName = newToDoCatSelect.options[newToDoCatSelect.selectedIndex].text;
+    console.log(selectedCategoryName);
+    var selectedCategoryId = getCategoryId(categories, selectedCategoryName.trim());
+    // newToDoCatSelect is the select for this modal
+    var toDoObject = {
+      todoID: todos.length,
+      todoText: newToDo,
+      todoCategory: selectedCategoryId,
+      todoDueDate: "TBD",
+      todoComplete: false,
+      todoDeleted: false
+    };
+    todos.push(toDoObject);
+    console.log(todos);
+    toDoList.innerHTML = ""; // Clears the toDoList so the new one can be added
+    renderToDos(todos);
+    selectCategoryModal.style.display = "none";
   };
-  todos.push(toDoObject);
-  console.log(todos);
-  toDoList.innerHTML = ""; // Clears the toDoList so the new one can be added
-  renderToDos(todos);
 }
 function renderToDo(todoItem) {
   var sideBtn = document.createElement("span");
@@ -481,7 +505,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51857" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49784" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
