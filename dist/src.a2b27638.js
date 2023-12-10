@@ -204,6 +204,9 @@ var editCatBtn = document.querySelector("#editCatBtn");
 var editCatSelect = document.querySelector("#editCatSelect");
 var editCatInput = document.querySelector("#editCatInput");
 var saveCatBtn = document.querySelector("#saveCatBtn");
+// add category stuff
+var addCatBtn = document.querySelector("#addCatBtn");
+var addCatInput = document.querySelector("#addCatInput");
 
 // Populate viewSelect with categories
 function populateViewSelect() {
@@ -280,6 +283,19 @@ saveCatBtn.addEventListener("click", function () {
       categories[i].categoryName = editCatInput.value;
     }
   }
+  populateViewSelect();
+});
+
+// add category functionality
+addCatBtn.addEventListener("click", function () {
+  // get the input of addCatInput and save it to the correct category
+  var newCatName = addCatInput.value;
+  var newCatId = categories.length;
+  var newCatObject = {
+    id: newCatId,
+    categoryName: newCatName
+  };
+  categories.push(newCatObject);
   populateViewSelect();
 });
 

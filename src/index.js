@@ -94,6 +94,9 @@ let editCatBtn = document.querySelector("#editCatBtn")
 let editCatSelect = document.querySelector("#editCatSelect")
 let editCatInput = document.querySelector("#editCatInput")
 let saveCatBtn = document.querySelector("#saveCatBtn")
+// add category stuff
+let addCatBtn = document.querySelector("#addCatBtn")
+let addCatInput = document.querySelector("#addCatInput")
 
 // Populate viewSelect with categories
 function populateViewSelect() {
@@ -175,6 +178,19 @@ saveCatBtn.addEventListener("click", function () {
       categories[i].categoryName = editCatInput.value
     }
   }
+  populateViewSelect()
+})
+
+// add category functionality
+addCatBtn.addEventListener("click", function () {
+  // get the input of addCatInput and save it to the correct category
+  let newCatName = addCatInput.value
+  let newCatId = categories.length
+  let newCatObject = {
+    id: newCatId,
+    categoryName: newCatName,
+  }
+  categories.push(newCatObject)
   populateViewSelect()
 })
 
