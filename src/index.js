@@ -150,7 +150,10 @@ viewBtn.addEventListener("click", function () {
   // run render toDos, but updating the function to only render the correct todos by the category
   if (selectedCategoryName === "All To Dos") {
     toDoList.innerHTML = "" // Clears the toDoList
-    renderToDos(todos)
+    fetch("/todos")
+      .then((response) => response.json())
+      .then((todos) => renderTodos(todos))
+      .catch((error) => console.error("Error:", error))
   } else {
     toDoList.innerHTML = "" // Clears the toDoList
     renderToDos(
@@ -396,11 +399,28 @@ function addToDo(newToDo) {
       todoComplete: false,
       todoDeleted: false,
     }
-    todos.push(toDoObject)
     console.log(todos)
-    toDoList.innerHTML = "" // Clears the toDoList so the new one can be added
-    renderToDos(todos)
-    selectCategoryModal.style.display = "none"
+    fetch("http://127.0.0.1:3000/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toDoObject),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+        return response.json()
+      })
+      .then((createdTodo) => {
+        // Optionally, update the UI with the newly created todo
+        todos.push(createdTodo)
+        toDoList.innerHTML = "" // Clears the toDoList so the new one can be added
+        renderToDos(todos)
+        selectCategoryModal.style.display = "none"
+      })
+      .catch((error) => console.error("Error:", error))
   }
 }
 
@@ -422,7 +442,6 @@ function renderToDo(todoItem) {
   newLi.appendChild(sideBtn)
   sideBtn.appendChild(sideBtnIcon)
 }
-
 function renderToDos(array) {
   // removed the deleted toDos from the displayed toDos
   const nonDeletedToDos = array.filter((toDo) => toDo.todoDeleted === false)
